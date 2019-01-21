@@ -1,16 +1,16 @@
 import React from "react";
 import "./Cigar.css";
-import Radium from "radium";
+// import Radium from "radium";
 
 const cigar = props => {
-  const style = {
-    "@media (min-width: 500px)": {
-      width: "450px"
-    }
-  };
+  // const style = {
+  //   "@media (min-width: 500px)": {
+  //     width: "450px"
+  //   }
+  // };
   return (
     //   <StyleRoot>
-    <div className="Cigar" style={style}>
+    <div className="Cigar">
       <p onClick={props.click}>
         {" "}
         CIGAR: {props.blend} <br /> AROMA: {props.characteristics}
@@ -26,4 +26,4 @@ const cigar = props => {
   );
 };
 
-export default Radium(cigar);
+export default cigar;

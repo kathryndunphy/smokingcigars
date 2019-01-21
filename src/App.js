@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Radium, { StyleRoot } from 'radium';
+// import Radium, { StyleRoot } from 'radium';
 import Cigar from "./Cigar/Cigar";
 
 class App extends Component {
@@ -75,10 +75,10 @@ class App extends Component {
       border: "1px solid blue",
       padding: "8px",
       cursor: "pointer",
-      ':hover': {
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      // ':hover': {
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     };
 
     let cigars = null;
@@ -100,10 +100,10 @@ class App extends Component {
         </div>
       );
       style.backgroundColor = "red";
-      style[':hover'] = {
-        backgroundColor: 'lightblue',
-        color: 'black'
-      }
+      // style[':hover'] = {
+      //   backgroundColor: 'lightblue',
+      //   color: 'black'
+      // }
     }
 const classes = [];
 
@@ -115,20 +115,20 @@ if (this.state.cigars.length <= 1) {
 }
 
     return (
-      <StyleRoot>
+      // <StyleRoot>
       <div className="App">
         <h1>Brasas Tejas Humidor</h1>
         <p className={classes.join(' ')}>Cigar Shop</p>
-        <button style={style} onClick={this.toggleCigarHandler}>
+        <button onClick={this.toggleCigarHandler}>
           Are we a new Cigar?
         </button>
 
         {cigars}
       </div>
-      </StyleRoot>
+      // </StyleRoot>
     );
     // return React.createElement( 'div', {className: 'App'}, React.createElement('h1', null, 'this shit work'));
   }
 }
 
-export default Radium(App);
+export default App;
