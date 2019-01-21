@@ -9,8 +9,8 @@
    font-size: larger;
 }
 
-/* @media (min-width: 500px) {
+@media (min-width: 500px) {
    .Cigar {
       width: 450px;
    }
-} */
+}
