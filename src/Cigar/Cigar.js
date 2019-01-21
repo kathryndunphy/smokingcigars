@@ -1,5 +1,5 @@
 import React from "react";
-import "./Cigar.css";
+import classes from './Cigar.css';
 // import Radium from "radium";
 
 const cigar = props => {
@@ -10,7 +10,7 @@ const cigar = props => {
   // };
   return (
     //   <StyleRoot>
-    <div className="Cigar">
+    <div className={classes.Cigar}>
       <p onClick={props.click}>
         {" "}
         CIGAR: {props.blend} <br /> AROMA: {props.characteristics}
