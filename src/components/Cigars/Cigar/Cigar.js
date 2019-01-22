@@ -3,13 +3,9 @@ import classes from './Cigar.css';
 // import Radium from "radium";
 
 const cigar = props => {
-  // const style = {
-  //   "@media (min-width: 500px)": {
-  //     width: "450px"
-  //   }
-  // };
+ 
   return (
-    //   <StyleRoot>
+    
     <div className={classes.Cigar}>
       <p onClick={props.click}>
         {" "}
@@ -22,7 +18,7 @@ const cigar = props => {
         value={props.characteristics}
       />
     </div>
-    // </StyleRoot>
+   
   );
 };
 
