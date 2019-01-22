@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import classes from "./App.css";
-// import Radium, { StyleRoot } from 'radium';
-import Cigar from "../components/Cigars/Cigar/Cigar";
-
+import Cigars from "../components/Cigars/Cigar/Cigar";
+// import Cigars from '../components/Cigars/Cigars';
 
 //you could do lots of things here to makes things easier
 
@@ -72,28 +71,23 @@ class App extends Component {
 
   render() {
     let cigars = null;
-    let btnClass = "";
+    let btnClass = '';
 
     if (this.state.showCigars) {
       cigars = (
         <div>
-          {this.state.cigars.map((cigar, index) => {
-            return (
-              <Cigar
-                click={() => this.deleteCigarHandler(index)}
-                blend={cigar.blend}
-                characteristics={cigar.characteristics}
-                key={cigar.id}
-                changed={event => this.cigarChangeHandler(event, cigar.id)}
-              />
-            );
-          })}
+          <Cigars 
+          cigars={this.state.cigars}
+          clicked={this.deleteCigarHandler}
+          changed={this.cigarChangeHandler} />
         </div>
       );
-      btnClass = classes.Red;
-    }
-    const assignedClasses = [];
 
+      btnClass = classes.Red;
+
+    }
+
+    const assignedClasses = [];
     if (this.state.cigars.length <= 2) {
       assignedClasses.push(classes.red);
     }
@@ -105,9 +99,9 @@ class App extends Component {
       // <StyleRoot>
       <div className={classes.App}>
         <h1>Brasas Tejas Humidor</h1>
-        <p className={assignedClasses.join(" ")}>Cigar Shop</p>
+        <p className={assignedClasses.join(' ')}>Cigar Shop</p>
         <button className={btnClass} onClick={this.toggleCigarHandler}>
-          Are we a new Cigar?
+          Toggle Cigars. Are we a new Cigar?
         </button>
 
         {cigars}
