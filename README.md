@@ -1,7 +1,31 @@
 ## Pairs well with coffee and self-loathing
-## This pairs well with coffee and self-loathing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+### Good to knows for React Structure
+
+*CLearly focused components
+*Create granular components
+*Create as many functional components as possible
+*Clear responsibilities of components, have them narrowly focused
+*Narrowly focused, only about presenting something, displaying JSX, and the logic to display (ex. adding css classes)
+*Don't manage State (to minimize State manipulations to maintain growth)
+\*Have containers be as lean as possible as far as JSX and styling
+
+### Stateless vs Stateful Components
+
+**\*Stateful (Containers)**
+-created with the class keyword and extend component (Class ABC extends component)
+-Can access State
+-Can impliment Lifecycle Hooks
+-Uses "this" keyword to access State and Props ( this.state.ABC & this.props.ABC)
+_Only use if there's a need to manage State or access Lifecycle Hooks_
+
+**\*Stateless**
+-functions which receive props ( const ABC = (props) => {...} )
+-No acess to State or impliment Lifecycle Hooks
+-Access Props via "props" ( props.ABC )
+_Use for all other Cases_
 
 ### Available Scripts
 

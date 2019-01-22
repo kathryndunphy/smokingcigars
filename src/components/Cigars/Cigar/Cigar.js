@@ -1,11 +1,9 @@
 import React from "react";
-import classes from './Cigar.css';
+import classes from "./Cigar.css";
 // import Radium from "radium";
 
 const cigar = props => {
- 
   return (
-    
     <div className={classes.Cigar}>
       <p onClick={props.click}>
         {" "}
@@ -18,7 +16,6 @@ const cigar = props => {
         value={props.characteristics}
       />
     </div>
-   
   );
 };
 

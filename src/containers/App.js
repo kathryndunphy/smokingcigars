@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import classes from "./App.css";
-import Cigars from "../components/Cigars/Cigar/Cigar";
-// import Cigars from '../components/Cigars/Cigars';
+// import Cigars from "../components/Cigars/Cigar/Cigar";
+import Cigars from "../components/Cigars/Cigars";
+import Cockpit from "../components/Cockpit/Cockpit";
 
 //you could do lots of things here to makes things easier
 
@@ -27,16 +28,6 @@ class App extends Component {
     otherState: "some other state no cigar kiddo",
     showCigars: false
   };
-
-  // switchCigarHandler = (newCigar)=> {
-  //   this.setState({
-  //     cigar: [
-  //     { blend: newCigar, characteristics: 'Characteristics1-Spicy Chocolate' },
-  //     { blend: 'Blend4-Connecticut Broadleaf', characteristics: 'Characteristics4-Caramel Hay'},
-  //     { blend: 'Blend3-Ecuadorian Sumatra', characteristics: 'Characteristics3-Floral and Spicy' }
-  //     ]
-  //   });
-  // }
 
   cigarChangeHandler = (event, id) => {
     const cigarIndex = this.state.cigars.findIndex(c => {
@@ -71,42 +62,28 @@ class App extends Component {
 
   render() {
     let cigars = null;
-    let btnClass = '';
 
     if (this.state.showCigars) {
       cigars = (
-        <div>
-          <Cigars 
+        <Cigars
           cigars={this.state.cigars}
           clicked={this.deleteCigarHandler}
-          changed={this.cigarChangeHandler} />
-        </div>
+          changed={this.cigarChangeHandler}
+        />
       );
-
-      btnClass = classes.Red;
-
-    }
-
-    const assignedClasses = [];
-    if (this.state.cigars.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.cigars.length <= 1) {
-      assignedClasses.push(classes.bold);
     }
 
     return (
-      // <StyleRoot>
       <div className={classes.App}>
-        <h1>Brasas Tejas Humidor</h1>
-        <p className={assignedClasses.join(' ')}>Cigar Shop</p>
-        <button className={btnClass} onClick={this.toggleCigarHandler}>
-          Toggle Cigars. Are we a new Cigar?
-        </button>
+        <Cockpit
+          appTitle={this.props.title}
+          showCigars={this.state.showCigars}
+          cigars={this.state.cigars}
+          clicked={this.toggleCigarHandler}
+        />
 
         {cigars}
       </div>
-      // </StyleRoot>
     );
     // return React.createElement( 'div', {className: 'App'}, React.createElement('h1', null, 'this shit work'));
   }
