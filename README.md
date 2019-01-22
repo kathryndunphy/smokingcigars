@@ -1,31 +1,5 @@
-New Tech:
-NPM Radium 
- 
- {/* <Cigar
-          blend={this.state.cigar[2].blend}
-          characteristics={this.state.cigar[1].characteristics}> This pairs well with coffee and self-loathing
-        </Cigar>
-
-        <Cigar
-          blend={this.state.cigar[0].blend}
-          characteristics={this.state.cigar[0].characteristics}
-        />
-
-        <Cigar
-          blend={this.state.cigar[1].blend}
-          characteristics={this.state.cigar[2].characteristics}
-          click={this.switchCigarHandler.bind(this, 'aint even a cigar')}
-          changed={this.switchCharacteristicsHandler}
-        >
-          this has a click handler to bind this and a new name, maybe
-        </Cigar>
-        <button className="button" onClick={() => this.switchCigarHandler('Are we a new cigar yet?!')}>
-          Next Cigar
-        </button> */}
-
-
-
-
+## Pairs well with coffee and self-loathing
+       
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
