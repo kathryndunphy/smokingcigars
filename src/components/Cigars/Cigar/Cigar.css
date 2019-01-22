@@ -1,0 +1,16 @@
+.Cigar {
+   width: 60%;
+   margin: 16px auto;
+   border: 12px solid rgba(139, 0, 0, 0.219);
+   box-shadow: 0 8px 8px rgb(132, 116, 221);
+   padding: 16px;
+   text-align: center;
+   background-color: rgb(187, 179, 241);
+   font-size: larger;
+}
+
+@media (min-width: 500px) {
+   .Cigar {
+      width: 450px;
+   }
+}
