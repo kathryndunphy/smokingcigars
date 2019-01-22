@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import classes from "./App.css";
 // import Cigars from "../components/Cigars/Cigar/Cigar";
 import Cigars from "../components/Cigars/Cigars";
@@ -6,28 +6,86 @@ import Cockpit from "../components/Cockpit/Cockpit";
 
 //you could do lots of things here to makes things easier
 
-class App extends Component {
-  state = {
-    cigars: [
-      {
-        id: "22",
-        blend: "Blend1-Yarguera Sade",
-        characteristics: "Characteristics1-Spicy Chocolate"
-      },
-      {
-        id: "23",
-        blend: "Blend2-San Andres Morron",
-        characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
-      },
-      {
-        id: "24",
-        blend: "Blend3-Ecuadorian Sumatra",
-        characteristics: "Characteristics3-Floral and Spicy"
-      }
-    ],
-    otherState: "some other state no cigar kiddo",
-    showCigars: false
-  };
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log("[App.js] Inside constructor", props);
+    this.state = {
+      cigars: [
+        {
+          id: "22",
+          blend: "Blend1-Yarguera Sade",
+          characteristics: "Characteristics1-Spicy Chocolate"
+        },
+        {
+          id: "23",
+          blend: "Blend2-San Andres Morron",
+          characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
+        },
+        {
+          id: "24",
+          blend: "Blend3-Ecuadorian Sumatra",
+          characteristics: "Characteristics3-Floral and Spicy"
+        }
+      ],
+      otherState: "some other state no cigar kiddo",
+      showCigars: false
+    };
+  }
+
+  componentWillMount() {
+    console.log("[App.js] componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("[App.js] inside componentDidMount");
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log(
+  //     "[Update App.js] inside shouldComponentUpdate",
+  //     nextProps,
+  //     nextState
+  //   );
+  //   return (
+  //     nextState.cigars !== this.state.cigars ||
+  //     nextState.showCigars !== this.state.showCigars
+  //   );
+  // }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "[Update App.js] inside componentWillUpdate",
+      nextProps,
+      nextState
+    );
+  }
+
+  componentDidUpdate(nextProps, nextState) {
+    console.log("[Update App.js] inside componentDidUpdate");
+  }
+
+  // state = {
+  //   cigars: [
+  //     {
+  //       id: "22",
+  //       blend: "Blend1-Yarguera Sade",
+  //       characteristics: "Characteristics1-Spicy Chocolate"
+  //     },
+  //     {
+  //       id: "23",
+  //       blend: "Blend2-San Andres Morron",
+  //       characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
+  //     },
+  //     {
+  //       id: "24",
+  //       blend: "Blend3-Ecuadorian Sumatra",
+  //       characteristics: "Characteristics3-Floral and Spicy"
+  //     }
+  //   ],
+  //   otherState: "some other state no cigar kiddo",
+  //   showCigars: false
+  // };
 
   cigarChangeHandler = (event, id) => {
     const cigarIndex = this.state.cigars.findIndex(c => {
@@ -61,6 +119,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("[Apps.js] inside render");
     let cigars = null;
 
     if (this.state.showCigars) {
@@ -75,6 +134,13 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
+        <button
+          onClick={() => {
+            this.setState({ showCigars: true });
+          }}
+        >
+          Show Cigars
+        </button>
         <Cockpit
           appTitle={this.props.title}
           showCigars={this.state.showCigars}
