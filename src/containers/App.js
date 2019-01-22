@@ -1,7 +1,10 @@
 import React, { Component } from "react";
-import classes from './App.css';
+import classes from "./App.css";
 // import Radium, { StyleRoot } from 'radium';
-import Cigar from "./Cigar/Cigar";
+import Cigar from "../components/Cigars/Cigar/Cigar";
+
+
+//you could do lots of things here to makes things easier
 
 class App extends Component {
   state = {
@@ -69,7 +72,7 @@ class App extends Component {
 
   render() {
     let cigars = null;
-    let btnClass = '';
+    let btnClass = "";
 
     if (this.state.showCigars) {
       cigars = (
@@ -87,25 +90,23 @@ class App extends Component {
           })}
         </div>
       );
-      btnClass = classes.Red
+      btnClass = classes.Red;
     }
-const assignedClasses = [];
+    const assignedClasses = [];
 
-if (this.state.cigars.length <=2) {
-  assignedClasses.push( classes.red );
-}
-if (this.state.cigars.length <= 1) {
-  assignedClasses.push( classes.bold );
-}
+    if (this.state.cigars.length <= 2) {
+      assignedClasses.push(classes.red);
+    }
+    if (this.state.cigars.length <= 1) {
+      assignedClasses.push(classes.bold);
+    }
 
     return (
       // <StyleRoot>
       <div className={classes.App}>
         <h1>Brasas Tejas Humidor</h1>
-        <p className={assignedClasses.join(' ')}>Cigar Shop</p>
-        <button
-        className={btnClass}   
-         onClick={this.toggleCigarHandler}>
+        <p className={assignedClasses.join(" ")}>Cigar Shop</p>
+        <button className={btnClass} onClick={this.toggleCigarHandler}>
           Are we a new Cigar?
         </button>
 
