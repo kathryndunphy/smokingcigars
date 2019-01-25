@@ -1,13 +1,14 @@
 import React from "react";
 
 import classes from "./Cockpit.css";
+import Aux from "../../hoc/Auxiliary/Auxiliary";
 
 const cockpit = props => {
   const assignedClasses = [];
-  let btnClass = "";
+  let btnClass = classes.Button;
 
   if (props.showCigars) {
-    btnClass = classes.Red;
+    btnClass = [classes.Button, classes.Red].join(" ");
   }
   if (props.cigars.length <= 10) {
     assignedClasses.push(classes.red);
@@ -17,14 +18,15 @@ const cockpit = props => {
   }
 
   return (
-    <div className={classes.Cockpit}>
+    <Aux>
       <h1>{props.appTitle}</h1>
       <p className={assignedClasses.join(" ")}>Cigar Shop</p>
       <button className={btnClass} onClick={props.clicked}>
         Toggle Cigars. Are we a new Cigar?
       </button>
-    </div>
+      <button onClick={props.login}>Log in</button>
+    </Aux>
   );
 };
 
-export default cockpit;
+export default React.memo(cockpit);

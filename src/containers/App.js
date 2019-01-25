@@ -4,7 +4,12 @@ import classes from "./App.css";
 import Cigars from "../components/Cigars/Cigars";
 import Cockpit from "../components/Cockpit/Cockpit";
 
+import withClass from "../hoc/withClass";
+import Aux from "../hoc/Auxiliary/Auxiliary";
+
 //you could do lots of things here to makes things easier
+
+export const AuthContext = React.createContext(false);
 
 class App extends PureComponent {
   constructor(props) {
@@ -29,7 +34,9 @@ class App extends PureComponent {
         }
       ],
       otherState: "some other state no cigar kiddo",
-      showCigars: false
+      showCigars: false,
+      toggleClicked: 0,
+      authenticated: false
     };
   }
 
@@ -41,18 +48,6 @@ class App extends PureComponent {
     console.log("[App.js] inside componentDidMount");
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log(
-  //     "[Update App.js] inside shouldComponentUpdate",
-  //     nextProps,
-  //     nextState
-  //   );
-  //   return (
-  //     nextState.cigars !== this.state.cigars ||
-  //     nextState.showCigars !== this.state.showCigars
-  //   );
-  // }
-
   componentWillUpdate(nextProps, nextState) {
     console.log(
       "[Update App.js] inside componentWillUpdate",
@@ -61,31 +56,22 @@ class App extends PureComponent {
     );
   }
 
-  componentDidUpdate(nextProps, nextState) {
-    console.log("[Update App.js] inside componentDidUpdate");
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      "[Update App.js] inside getDerivedStateFromProps",
+      nextProps,
+      prevState
+    );
+    return prevState;
   }
 
-  // state = {
-  //   cigars: [
-  //     {
-  //       id: "22",
-  //       blend: "Blend1-Yarguera Sade",
-  //       characteristics: "Characteristics1-Spicy Chocolate"
-  //     },
-  //     {
-  //       id: "23",
-  //       blend: "Blend2-San Andres Morron",
-  //       characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
-  //     },
-  //     {
-  //       id: "24",
-  //       blend: "Blend3-Ecuadorian Sumatra",
-  //       characteristics: "Characteristics3-Floral and Spicy"
-  //     }
-  //   ],
-  //   otherState: "some other state no cigar kiddo",
-  //   showCigars: false
-  // };
+  getSnapshotBeforeUpdate() {
+    console.log("[Update App.js] inside getSnapshotBeforeUpdate");
+  }
+
+  componentDidUpdate(_nextProps, _nextState) {
+    console.log("[Update App.js] inside componentDidUpdate");
+  }
 
   cigarChangeHandler = (event, id) => {
     const cigarIndex = this.state.cigars.findIndex(c => {
@@ -96,8 +82,6 @@ class App extends PureComponent {
       ...this.state.cigars[cigarIndex]
     };
 
-    // const cigar = Object.assign({}, this.state.cigar[cigarInex])
-
     cigar.blend = event.target.value;
 
     const cigars = [...this.state.cigar];
@@ -107,7 +91,6 @@ class App extends PureComponent {
   };
 
   deleteCigarHandler = cigarIndex => {
-    // const cigar = this.state.cigar.slice();
     const cigars = [...this.state.cigars];
     cigars.splice(cigarIndex, 1);
     this.setState({ cigars: cigars });
@@ -115,7 +98,16 @@ class App extends PureComponent {
 
   toggleCigarHandler = () => {
     const doesShow = this.state.showCigars;
-    this.setState({ showCigars: !doesShow });
+    this.setState((prevState, props) => {
+      return {
+        showCigars: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      };
+    });
+  };
+
+  loginHandler = () => {
+    this.setState({ authenticated: true });
   };
 
   render() {
@@ -133,7 +125,7 @@ class App extends PureComponent {
     }
 
     return (
-      <div className={classes.App}>
+      <Aux>
         <button
           onClick={() => {
             this.setState({ showCigars: true });
@@ -145,14 +137,15 @@ class App extends PureComponent {
           appTitle={this.props.title}
           showCigars={this.state.showCigars}
           cigars={this.state.cigars}
+          login={this.loginHandler}
           clicked={this.toggleCigarHandler}
         />
-
-        {cigars}
-      </div>
+        <AuthContext.Provider value={this.state.authenticated}>
+          {cigars}
+        </AuthContext.Provider>
+      </Aux>
     );
-    // return React.createElement( 'div', {className: 'App'}, React.createElement('h1', null, 'this shit work'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);
