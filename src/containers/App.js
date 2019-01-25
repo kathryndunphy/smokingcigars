@@ -1,42 +1,77 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import classes from "./App.css";
-import Cigars from "../components/Cigars/Cigar/Cigar";
-// import Cigars from '../components/Cigars/Cigars';
+// import Cigars from "../components/Cigars/Cigar/Cigar";
+import Cigars from "../components/Cigars/Cigars";
+import Cockpit from "../components/Cockpit/Cockpit";
+
+import withClass from "../hoc/withClass";
+import Aux from "../hoc/Auxiliary/Auxiliary";
 
 //you could do lots of things here to makes things easier
 
-class App extends Component {
-  state = {
-    cigars: [
-      {
-        id: "22",
-        blend: "Blend1-Yarguera Sade",
-        characteristics: "Characteristics1-Spicy Chocolate"
-      },
-      {
-        id: "23",
-        blend: "Blend2-San Andres Morron",
-        characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
-      },
-      {
-        id: "24",
-        blend: "Blend3-Ecuadorian Sumatra",
-        characteristics: "Characteristics3-Floral and Spicy"
-      }
-    ],
-    otherState: "some other state no cigar kiddo",
-    showCigars: false
-  };
+export const AuthContext = React.createContext(false);
 
-  // switchCigarHandler = (newCigar)=> {
-  //   this.setState({
-  //     cigar: [
-  //     { blend: newCigar, characteristics: 'Characteristics1-Spicy Chocolate' },
-  //     { blend: 'Blend4-Connecticut Broadleaf', characteristics: 'Characteristics4-Caramel Hay'},
-  //     { blend: 'Blend3-Ecuadorian Sumatra', characteristics: 'Characteristics3-Floral and Spicy' }
-  //     ]
-  //   });
-  // }
+class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    console.log("[App.js] Inside constructor", props);
+    this.state = {
+      cigars: [
+        {
+          id: "22",
+          blend: "Blend1-Yarguera Sade",
+          characteristics: "Characteristics1-Spicy Chocolate"
+        },
+        {
+          id: "23",
+          blend: "Blend2-San Andres Morron",
+          characteristics: "Characteristics2-Sweet Cocoa and Walnuts"
+        },
+        {
+          id: "24",
+          blend: "Blend3-Ecuadorian Sumatra",
+          characteristics: "Characteristics3-Floral and Spicy"
+        }
+      ],
+      otherState: "some other state no cigar kiddo",
+      showCigars: false,
+      toggleClicked: 0,
+      authenticated: false
+    };
+  }
+
+  componentWillMount() {
+    console.log("[App.js] componentWillMount");
+  }
+
+  componentDidMount() {
+    console.log("[App.js] inside componentDidMount");
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "[Update App.js] inside componentWillUpdate",
+      nextProps,
+      nextState
+    );
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    console.log(
+      "[Update App.js] inside getDerivedStateFromProps",
+      nextProps,
+      prevState
+    );
+    return prevState;
+  }
+
+  getSnapshotBeforeUpdate() {
+    console.log("[Update App.js] inside getSnapshotBeforeUpdate");
+  }
+
+  componentDidUpdate(_nextProps, _nextState) {
+    console.log("[Update App.js] inside componentDidUpdate");
+  }
 
   cigarChangeHandler = (event, id) => {
     const cigarIndex = this.state.cigars.findIndex(c => {
@@ -47,8 +82,6 @@ class App extends Component {
       ...this.state.cigars[cigarIndex]
     };
 
-    // const cigar = Object.assign({}, this.state.cigar[cigarInex])
-
     cigar.blend = event.target.value;
 
     const cigars = [...this.state.cigar];
@@ -58,7 +91,6 @@ class App extends Component {
   };
 
   deleteCigarHandler = cigarIndex => {
-    // const cigar = this.state.cigar.slice();
     const cigars = [...this.state.cigars];
     cigars.splice(cigarIndex, 1);
     this.setState({ cigars: cigars });
@@ -66,50 +98,54 @@ class App extends Component {
 
   toggleCigarHandler = () => {
     const doesShow = this.state.showCigars;
-    this.setState({ showCigars: !doesShow });
+    this.setState((prevState, props) => {
+      return {
+        showCigars: !doesShow,
+        toggleClicked: prevState.toggleClicked + 1
+      };
+    });
+  };
+
+  loginHandler = () => {
+    this.setState({ authenticated: true });
   };
 
   render() {
+    console.log("[Apps.js] inside render");
     let cigars = null;
-    let btnClass = '';
 
     if (this.state.showCigars) {
       cigars = (
-        <div>
-          <Cigars 
+        <Cigars
           cigars={this.state.cigars}
           clicked={this.deleteCigarHandler}
-          changed={this.cigarChangeHandler} />
-        </div>
+          changed={this.cigarChangeHandler}
+        />
       );
-
-      btnClass = classes.Red;
-
-    }
-
-    const assignedClasses = [];
-    if (this.state.cigars.length <= 2) {
-      assignedClasses.push(classes.red);
-    }
-    if (this.state.cigars.length <= 1) {
-      assignedClasses.push(classes.bold);
     }
 
     return (
-      // <StyleRoot>
-      <div className={classes.App}>
-        <h1>Brasas Tejas Humidor</h1>
-        <p className={assignedClasses.join(' ')}>Cigar Shop</p>
-        <button className={btnClass} onClick={this.toggleCigarHandler}>
-          Toggle Cigars. Are we a new Cigar?
+      <Aux>
+        <button
+          onClick={() => {
+            this.setState({ showCigars: true });
+          }}
+        >
+          Show Cigars
         </button>
-
-        {cigars}
-      </div>
-      // </StyleRoot>
+        <Cockpit
+          appTitle={this.props.title}
+          showCigars={this.state.showCigars}
+          cigars={this.state.cigars}
+          login={this.loginHandler}
+          clicked={this.toggleCigarHandler}
+        />
+        <AuthContext.Provider value={this.state.authenticated}>
+          {cigars}
+        </AuthContext.Provider>
+      </Aux>
     );
-    // return React.createElement( 'div', {className: 'App'}, React.createElement('h1', null, 'this shit work'));
   }
 }
 
-export default App;
+export default withClass(App, classes.App);

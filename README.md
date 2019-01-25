@@ -1,11 +1,41 @@
 ## Pairs well with coffee and self-loathing
-## This pairs well with coffee and self-loathing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Available Scripts
+### Helpful Resources
 
-In the project directory, you can run:
+- [State and Lifecycle](https://reactjs.org/docs/state-and-lifecycle.html)
+- [PropTypes](https://reactjs.org/docs/typechecking-with-proptypes.html)
+- [Higher Order Components HOC](https://reactjs.org/docs/higher-order-components.html)
+- [Refs and the DOM](https://reactjs.org/docs/refs-and-the-dom.html)
+
+### Good to knows for React Structure
+
+- Clearly focused components
+- Create granular components
+- Create as many functional components as possible
+- Clear responsibilities of components, have them narrowly focused
+- Narrowly focused, only about presenting something, displaying JSX, and the logic to display (ex. adding css classes)
+- Don't manage State (to minimize State manipulations to maintain growth)
+- Have containers be as lean as possible as far as JSX and styling
+
+### Stateless vs Stateful Components
+
+**\*Stateful (Containers)**
+
+1. created with the class keyword and extend component (Class ABC extends component)
+2. Can access State
+3. Can implement Lifecycle Hooks
+4. Uses "this" keyword to access State and Props
+   - ( this.state.ABC & this.props.ABC)
+5. **_Only use if there's a need to manage State or access Lifecycle Hooks_**
+
+**\*Stateless**
+
+1. functions which receive props ( const ABC = (props) => {...} )
+2. No access to State or implement Lifecycle Hooks
+3. Access Props via "props" ( props.ABC )
+4. _*Use for all other Cases*_
 
 ### `npm start`
 
